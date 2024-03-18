@@ -1,3 +1,5 @@
+# Containers
+# Images needs to be public
 name: 7-Deploy Containers
 on:
   push:
@@ -14,7 +16,9 @@ env:
 jobs:
   test:
     environment: testing
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # This machine will just host
+    container: # To use a container
+      image: node:16
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
       MONGODB_CLUSTER_ADDRESS: gha-demo.anxy20b.mongodb.net
