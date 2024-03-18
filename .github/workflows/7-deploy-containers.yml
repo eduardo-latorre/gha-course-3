@@ -1,5 +1,8 @@
 # Containers
-# Images needs to be public
+# Images needs to be public to access to the images
+# Container culd allow to run test on container instead of using
+# a production environment
+# - Data will be available only during the tests
 name: 7-Deploy Containers
 on:
   push:
@@ -17,14 +20,23 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest # This machine will just host
-    container: # To use a container
-      image: node:16
-    env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: gha-demo.anxy20b.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+    # container: # To use a container
+    #   image: node:16
+    env: # Using labels from service
+      MONGODB_CONNECTION_PROTOCOL: mongodb
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: example
       PORT: 8080
+    services: # To use other containers as services (same as Docker compose)
+      mongodb:
+        image: mongo # Services always inside of images
+        ports:
+          - 27017:27017
+        env: # To set the envs needed to use a container
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: example
+      # another-service:
     steps:
       - name: Get code
         uses: actions/checkout@v3
