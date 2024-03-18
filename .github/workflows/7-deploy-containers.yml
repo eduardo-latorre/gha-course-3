@@ -4,6 +4,10 @@ on:
     branches:
       - main
       - dev
+  workflow_dispatch:
+    branches:
+      - main
+      - dev
 env:
   CACHE_KEY: nodes-deps
   MONGODB_DB_NAME: gha-demo
