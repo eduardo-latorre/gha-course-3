@@ -23,8 +23,8 @@ jobs:
     # container: # To use a container
     #   image: node:16
     env: # Using labels from service
-      MONGODB_CONNECTION_PROTOCOL: mongodb
-      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017
+      MONGODB_CONNECTION_PROTOCOL: mongodb # Service label
+      MONGODB_CLUSTER_ADDRESS: 127.0.0.1:27017 # Service label
       MONGODB_USERNAME: root
       MONGODB_PASSWORD: example
       PORT: 8080
